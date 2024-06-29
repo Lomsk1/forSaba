@@ -1,0 +1,9 @@
+import { createOne, getAll, getOne } from "./../factory";
+import SoldProduct from "../../models/product/soldProducts.model";
+
+export const getAllSoldProducts = getAll(SoldProduct, {
+  path: "user",
+  select: "firstName lastName email _id",
+});
+export const getSoldProductId = getOne(SoldProduct);
+export const createSoldProduct = createOne(SoldProduct);
