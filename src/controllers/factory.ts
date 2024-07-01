@@ -11,7 +11,7 @@ export const getAll = (
 ) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     let filter = {};
-    // if (req.params.receiptId) filter = { receipt: req.params.receiptID };
+   
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()

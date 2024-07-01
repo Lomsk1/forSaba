@@ -1,5 +1,4 @@
-import { NextFunction } from "express";
-import mongoose, { Document, Model, Query } from "mongoose";
+import mongoose, { Document, Model } from "mongoose";
 
 // An interface that describes the properties
 // that are required to create a new Brand
@@ -84,12 +83,12 @@ const productSchema = new mongoose.Schema<ProductAttrs>({
   },
 });
 
-productSchema.pre(/^find/, function (next: NextFunction) {
-  const query = this as Query<ProductDoc[], ProductDoc>;
+// productSchema.pre(/^find/, function (next: NextFunction) {
+//   const query = this as Query<ProductDoc[], ProductDoc>;
 
-  query.find({ amount: { $gt: 0 } });
-  next();
-});
+//   query.find({ amount: { $gt: 0 } });
+//   next();
+// });
 
 productSchema.methods.sellProductFn = async function (soldItems: number) {
   this.amount = this.amount - soldItems;
