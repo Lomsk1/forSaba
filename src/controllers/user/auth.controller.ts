@@ -13,7 +13,7 @@ export const createSendToken = (
   res: Response,
   req: Request
 ) => {
-  const token = signToken(user.id, user.email, user.role);
+  const token = signToken(user.id, user.username, user.role);
 
   res.cookie("jwt", token, {
     expires: new Date(
@@ -32,14 +32,14 @@ export const createSendToken = (
 
 export const userSignUp = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const checkUser = await User.findOne({ email: req.body.email });
+    const checkUser = await User.findOne({ username: req.body.username });
     if (checkUser) {
-      next(new AppError("აღნიშნული იმეილით უკვე არსებობს მომხმარებელი", 400));
+      next(new AppError("აღნიშნული username -ით უკვე არსებობს მომხმარებელი", 400));
     } else {
       const newUser = await User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        email: req.body.email,
+        username: req.body.username,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
       });
@@ -51,17 +51,17 @@ export const userSignUp = catchAsync(
 
 export const userLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    // 1) check if email and password exist
-    if (!email || !password) {
-      return next(new AppError("გთხოვთ, მიუთითოთ იმეილი და პაროლი!", 400));
+    // 1) check if username and password exist
+    if (!username || !password) {
+      return next(new AppError("გთხოვთ, მიუთითოთ username და პაროლი!", 400));
     }
     // 2) check if user exist && password is correct
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ username }).select("+password");
 
     if (!user || !(await user.correctPassword(password, user.password))) {
-      return next(new AppError("პაროლი ან იმეილი არასწორია", 401));
+      return next(new AppError("პაროლი ან username არასწორია", 401));
     }
 
     // 3) if everything is OK, send token to client

@@ -8,7 +8,7 @@ import crypto from "crypto";
 interface UserAttrs {
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
   role: string;
   register: Date;
   password: string;
@@ -34,7 +34,7 @@ interface UserModel extends Model<UserDoc> {
 export interface UserDoc extends Document {
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
   role: string;
   register: Date;
   password: string;
@@ -66,12 +66,11 @@ const userSchema = new mongoose.Schema<UserAttrs>(
       type: String,
       required: [true, "მიუთითეთ თქვენი გვარი"],
     },
-    email: {
+    username: {
       type: String,
       required: [true, "მიუთითეთ თქვენი იმეილი"],
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, "იმეილის ტიპი არასწორია"],
     },
     password: {
       type: String,

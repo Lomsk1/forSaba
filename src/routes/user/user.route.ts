@@ -7,6 +7,7 @@ import {
 import { getCostumer } from "../../middlewares/getCostumer";
 import { protect } from "../../middlewares/protection";
 import {
+  getAllUser,
   getUser,
   getUserById,
   updateUser,
@@ -16,6 +17,8 @@ const userRouter = express.Router();
 
 userRouter.post("/signup", userSignUp);
 userRouter.post("/login", userLogin);
+
+userRouter.get("/", getAllUser);
 
 userRouter.get("/getUser/:id", getUserById);
 

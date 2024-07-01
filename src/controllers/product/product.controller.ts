@@ -40,6 +40,8 @@ export const sellProduct = catchAsync(
 
     res.status(201).json({
       status: "success",
+      user,
+      product,
     });
   }
 );

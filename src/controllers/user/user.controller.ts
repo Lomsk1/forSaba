@@ -3,7 +3,7 @@ import { Response, Request, NextFunction } from "express";
 import { catchAsync } from "../../utils/catchAsync";
 import User from "../../models/user/user.models";
 import AppError from "../../utils/appErrors";
-import { getOne } from "../factory";
+import { getAll, getOne } from "../factory";
 
 export const getUserById = getOne(User);
 
@@ -53,3 +53,5 @@ export const updateUser = catchAsync(
     });
   }
 );
+
+export const getAllUser = getAll(User);
