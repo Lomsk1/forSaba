@@ -34,7 +34,7 @@ export const updateUser = catchAsync(
       req.body,
       "firstName",
       "lastName",
-      "email"
+      "username"
     );
 
     // 3) Update user document
